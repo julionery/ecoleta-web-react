@@ -1,6 +1,13 @@
 <h3 align="center">
     <img alt="Logo" title="#logo" width="300px" src="https://raw.githubusercontent.com/julionery/ecoleta-web-react/42df1319f325b073d306f70b6e4bd643b8bb959e/src/assets/logo.svg">
 </h3>
+<p align="center">
+  <a href="https://rocketseat.com.br">
+    <img alt="Made by Rocketseat" src="https://img.shields.io/badge/made%20by-Rocketseat-%237519C1">
+  </a>
+  <a>
+  <img alt="License" src="https://img.shields.io/github/license/vitorserrano/ecoleta?color=%237519C1">
+</p>
 <h2 align="center">Aplicação Web</h2>
 
 ### :rocket: Tecnologias:
