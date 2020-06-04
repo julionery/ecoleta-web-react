@@ -1,21 +1,28 @@
-# Ecoleta Web
-Aplicação Web do Ecoleta
+<h3 align="center">
+    <img alt="Logo" title="#logo" width="300px" src="https://raw.githubusercontent.com/julionery/ecoleta-web-react/42df1319f325b073d306f70b6e4bd643b8bb959e/src/assets/logo.svg">
+</h3>
+<h2 align="center">Aplicação Web</h2>
 
-#### :rocket: Tecnologias:
+### :rocket: Tecnologias:
  - [React](https://reactjs.org/ "ReactJS")
  - [TypeScript](https://www.typescriptlang.org/)
 
-#### :computer: Bibliotecas e ferramentas:
+### :computer: Bibliotecas e ferramentas:
  - [Axios](https://github.com/axios/axios "Axios")
  - [React Icons](https://react-icons.github.io/react-icons/)
  - [React Router](https://reacttraining.com/react-router/)
 
-#### :earth_americas: Maps
+### :earth_americas: Maps
  - [Leaflet](https://leafletjs.com/)
  - [React-Leaflet](https://react-leaflet.js.org/)
 
-#### API's
+### API's
+ - [Ecoleta](https://github.com/julionery/ecoleta-server-nodejs)
  - [IBGE](https://servicodados.ibge.gov.br/api/docs/localidades?versao=1)
 
-#### Informações Úteis
+### Links Úteis
  - [React+TypeScript Cheatsheets](https://github.com/typescript-cheatsheets/react-typescript-cheatsheet)
+ 
+<h2 align="center">Demonstração</h2>
+
+![](https://github.com/julionery/rocketseat-nlw/blob/master/docs/ecoleta-web.gif?raw=true)
