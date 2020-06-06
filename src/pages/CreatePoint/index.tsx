@@ -3,6 +3,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi'
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import { LeafletMouseEvent } from 'leaflet';
+import MaskedInput from 'react-text-mask';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from 'axios';
 import api from '../../services/api';
 
@@ -69,7 +74,7 @@ const CreatePoint = () => {
       setUfs(ufInitials);
     });
   }, []);
-
+  
   useEffect(() => {
     if(selectedUf === '0'){
       return;
@@ -100,7 +105,6 @@ const CreatePoint = () => {
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>){
     const { name, value } = event.target;
-
     setFormData({ ...formData, [name]: value });
   }
 
@@ -123,12 +127,29 @@ const CreatePoint = () => {
     const city = selectedCity;
     const [latitude, longitude] = selectedPosition;
     const items = selectedItems;
+    const whatsappSend = whatsapp.replace(" ", "").replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+    
+    let validation = []
+    if(!name.trim()) validation.push("name");
+    if(!email.trim()) validation.push("email");
+    if(!whatsapp.trim()) validation.push("whatsapp");
+    if(uf === "0") validation.push("uf");
+    if(city === "0") validation.push("city");
+    if(latitude === 0) validation.push("latitude");
+    if(longitude === 0) validation.push("longitude");
+    if (items.length === 0) validation.push("items");
+
+    if(validation.length > 0){
+      validation.forEach((element)=>{
+        showErrorToast(element);
+      });
+      return;
+    }
 
     const data = new FormData();
-
     data.append('name', name);
     data.append('email', email);
-    data.append('whatsapp', whatsapp);
+    data.append('whatsapp', whatsappSend);
     data.append('uf', uf);
     data.append('city', city);
     data.append('latitude', String(latitude));
@@ -139,13 +160,63 @@ const CreatePoint = () => {
       data.append('image', selectedFile);
     }
 
-    await api.post('points', data);
-    alert('Ponto de coleta Criado');
-    history.push('/');
+    try {
+      await api.post('points', data);
+      toast.success('Cadastro realizado com Sucesso!', {
+        autoClose: 2500,
+        position: "top-center",
+        });
+      setTimeout(() => {
+        history.push("/");
+      }, 3000);
+    } catch (error) {
+      if (error.response) {
+        if(error.response.data.validation){
+          error.response.data.validation.keys.forEach((element: string) => {
+            showErrorToast(element);
+          });
+        }
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+    }
+
+    function showErrorToast(element: string) {
+      switch (element) {
+        case "name":
+          toast.error("Informe o nome!");
+          break;
+        case "email":
+          toast.error("Informe o e-mail!");
+          break;
+        case "whatsapp":
+          toast.error("Informe o whatsapp!");
+          break;
+        case "latitude":
+          toast.error("Selecione um ponto no mapa!");
+          break;
+        case "uf":
+          toast.error("Selecione o estado!");
+          break;
+        case "city":
+          toast.error("Selecione a cidade!");
+          break;
+        case "image":
+          toast.error("Selecione a imagem!");
+          break;
+        case "items":
+          toast.error("Selecione ao menos 1 item!");
+          break;
+        default: 
+          return;
+      }
+    }
   }
 
   return (
-    <div id="page-create-point">
+    <div id="page-create-point">   
       <header>
         <img src={logo} alt="Ecoleta"/>
         <Link to="/">
@@ -153,7 +224,11 @@ const CreatePoint = () => {
           Voltar para home
         </Link>
       </header>
+
+      <ToastContainer />
+
       <form onSubmit={handleSubmit}>
+
         <h1>Cadastro do <br /> ponto de coleta</h1>
 
         <Dropzone onFileUploaded={setSelectedFile}/>
@@ -168,6 +243,7 @@ const CreatePoint = () => {
               type="text"
               name="name"
               id="name"
+              required
               onChange={handleInputChange}
             />
           </div>
@@ -179,15 +255,17 @@ const CreatePoint = () => {
                 type="email"
                 name="email"
                 id="email"
+                required
                 onChange={handleInputChange}
               />
             </div>
             <div className="field">
               <label htmlFor="whatsapp">Whatsapp</label>
-              <input 
-                type="text"
+              <MaskedInput 
                 name="whatsapp"
                 id="whatsapp"
+                required
+                mask={['(', /\d/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
                 onChange={handleInputChange}
               />
             </div>
@@ -213,7 +291,8 @@ const CreatePoint = () => {
               <label htmlFor="uf">Estado (UF)</label>
               <select 
                 name="uf" 
-                id="uf" 
+                id="uf"
+                required 
                 value={selectedUf} 
                 onChange={handleSelectUf}
               >
@@ -230,6 +309,7 @@ const CreatePoint = () => {
               <select 
                 name="city" 
                 id="city"
+                required
                 value={selectedCity} 
                 onChange={handleSelectCity}
               >
@@ -264,9 +344,16 @@ const CreatePoint = () => {
           </ul>
         </fieldset>
 
-        <button type="submit">
-          Cadastrar ponto de coleta 
-        </button>
+      <div className="field-group">
+          <div className="field">
+            <label id="label-required">Todos os itens são obrigatório o preenchimento.</label>
+          </div>
+          <div className="field">
+            <button type="submit">
+              Cadastrar ponto de coleta 
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
