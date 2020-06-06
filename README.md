@@ -18,6 +18,8 @@
  - [Axios](https://github.com/axios/axios "Axios")
  - [React Icons](https://react-icons.github.io/react-icons/)
  - [React Router](https://reacttraining.com/react-router/)
+ - [React Dropzone](https://github.com/react-dropzone/react-dropzone)
+ - [Yup - Validations](https://github.com/jquense/yup)
 
 ### :earth_americas: Maps
  - [Leaflet](https://leafletjs.com/)
