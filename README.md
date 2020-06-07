@@ -34,7 +34,7 @@
  
 <h2 align="center">Demonstração</h2>
 
-![](https://github.com/julionery/rocketseat-nlw/blob/master/docs/ecoleta-web.gif?raw=true)
+![](https://github.com/julionery/docs/blob/master/NLW-01/ecoleta-web.gif?raw=true)
 
 
 ### :information_source: Como Usar
