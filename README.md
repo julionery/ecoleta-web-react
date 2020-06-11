@@ -10,6 +10,14 @@
 </p>
 <h2 align="center">Aplicação Web</h2>
 
+Este repositório contém a Aplicação Web do projeto [Ecoleta](https://github.com/julionery/rocketseat-nlw). 
+
+### :pushpin: Pre-requisitos:
+- [Ecoleta API](https://github.com/julionery/ecoleta-server-nodejs)
+
+### :pushpin: Projeto que depende desse repositório:
+- [Ecoleta Mobile](https://github.com/julionery/ecoleta-mobile-react-native)
+
 ### :rocket: Tecnologias
  - [React](https://reactjs.org/ "ReactJS")
  - [TypeScript](https://www.typescriptlang.org/)
@@ -57,6 +65,9 @@ $ npm install
 $ npm start
 
 ```
+
+## :memo: Licença
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
